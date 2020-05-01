@@ -68,6 +68,12 @@ public class LocationMessage {
     private @Nullable BigDecimal gpsAccuracy;
 
     /**
+     * Altitude measured above sea level (iOS,Android/integer/meters/optional)
+     */
+    @SerializedName("alt")
+    private @Nullable Integer gpsAltitude;
+
+    /**
      * Battery level (iOS,Android/integer/percent/optional)
      */
     @SerializedName("batt")
@@ -128,11 +134,24 @@ public class LocationMessage {
         return UnDefType.UNDEF;
     }
 
+    /**
+     * Converts altitude into QuantityType
+     *
+     * @return Conversion result
+     */
+    public State getGpsAltitude() {
+        if (gpsAccuracy != null) {
+            return new QuantityType<>(gpsAltitude.intValue(), SIUnits.METRE);
+        }
+        return UnDefType.UNDEF;
+    }
+
     @Override
     public String toString() {
         return "LocationMessage [" + ("type=" + type + ", ") + ("trackerId=" + trackerId + ", ")
                 + ("latitude=" + latitude + ", ") + ("longitude=" + longitude + ", ")
                 + (gpsAccuracy != null ? "gpsAccuracy=" + gpsAccuracy + ", " : "")
+                + (gpsAltitude != null ? "gpsAltitude=" + gpsAltitude + ", " : "")
                 + ("batteryLevel=" + batteryLevel + ", ") + ("timestampMillis=" + timestampMillis) + "]";
     }
 }
