@@ -14,6 +14,7 @@
 			<channel id="regionTrigger" typeId="regionTrigger"/>
 			<channel id="lastReport" typeId="lastReport"/>
 			<channel id="gpsAccuracy" typeId="gpsAccuracy"/>
+			<channel id="gpsAltitude" typeId="gpsAltitude"/>
 		</channels>
 
 		<config-description-ref uri="thing-type:gpstracker:tracker"/>
@@ -31,6 +32,12 @@
 		<item-type>Number:Length</item-type>
 		<label>Accuracy</label>
 		<description>GPS accuracy</description>
+		<state pattern="%d %unit%" readOnly="true"/>
+	</channel-type>
+	<channel-type id="gpsAltitude">
+		<item-type>Number:Length</item-type>
+		<label>Altitude</label>
+		<description>GPS altitude</description>
 		<state pattern="%d %unit%" readOnly="true"/>
 	</channel-type>
 	<channel-type id="lastReport">
