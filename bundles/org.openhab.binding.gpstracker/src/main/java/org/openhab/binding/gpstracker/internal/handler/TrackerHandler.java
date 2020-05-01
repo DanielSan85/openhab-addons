@@ -245,6 +245,9 @@ public class TrackerHandler extends BaseThingHandler {
                 case CHANNEL_GPS_ACCURACY:
                     updateBaseChannels(lastMessage, CHANNEL_GPS_ACCURACY);
                     break;
+                case CHANNEL_GPS_ALTITUDE:
+                    updateBaseChannels(lastMessage, CHANNEL_GPS_ALTITUDE);
+                    break;
                 default: // distance channels
                     @Nullable
                     Channel channel = thing.getChannel(channelId);
@@ -291,7 +294,7 @@ public class TrackerHandler extends BaseThingHandler {
      */
     private void updateChannelsWithLocation(LocationMessage message) {
         updateBaseChannels(message, CHANNEL_BATTERY_LEVEL, CHANNEL_LAST_LOCATION, CHANNEL_LAST_REPORT,
-                CHANNEL_GPS_ACCURACY);
+                CHANNEL_GPS_ACCURACY, CHANNEL_GPS_ALTITUDE);
 
         String trackerId = message.getTrackerId();
         logger.debug("Updating distance channels tracker {}", trackerId);
@@ -385,6 +388,11 @@ public class TrackerHandler extends BaseThingHandler {
                     State accuracy = message.getGpsAccuracy();
                     updateState(CHANNEL_GPS_ACCURACY, accuracy);
                     logger.trace("{} -> {}", CHANNEL_GPS_ACCURACY, accuracy);
+                    break;
+                case CHANNEL_GPS_ALTITUDE:
+                    State altitude = message.getGpsAltitude();
+                    updateState(CHANNEL_GPS_ALTITUDE, altitude);
+                    logger.trace("{} -> {}", CHANNEL_GPS_ALTITUDE, altitude);
                     break;
             }
         }
